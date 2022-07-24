@@ -27,18 +27,11 @@ class Triangle {
 	}
 
 	getPerimeter() {
-		if (this.side1+this.side2<this.side3 || this.side1+this.side3<this.side2 || this.side3+this.side2<this.side1) {
-			throw new Error("Ошибка! Треугольник не существует.");
-		}
-
 		const P = Number(this.side1 + this.side2 + this.side3);
 		return P;
 	}
 
 	getArea() {
-		if (this.side1+this.side2<this.side3 || this.side1+this.side3<this.side2 || this.side3+this.side2<this.side1) {
-			throw new Error("Ошибка! Треугольник не существует.");
-		}
 		const p = Number((this.side1 + this.side2 + this.side3)/2);
 		const S = Number(Math.sqrt(p*(p-this.side1)*(p-this.side2)*(p-this.side3)).toFixed(3));
 		return S;
@@ -51,8 +44,14 @@ function getTriangle(a,b,c) {
 	try {
 		return new Triangle(a,b,c);
 	} catch(e) {
-		
-		return new Error("Ошибка! Треугольник не существует.");
+		return {
+			getArea() {
+				return "Ошибка! Треугольник не существует";
+			},
+			getPerimeter() {
+				return "Ошибка! Треугольник не существует";
+			}
+		}
 	}
 }
 
