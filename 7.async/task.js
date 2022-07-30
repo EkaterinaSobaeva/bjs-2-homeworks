@@ -13,12 +13,7 @@ class AlarmClock {
 		if (this.alarmCollection.some(item => item.id === id)) {
 			console.error('Звонок с таким идентификатором существует');
 		} else {
-			let alarm = {};
-			alarm.id = id;
-			alarm.time = time;
-			alarm.callback = callback;
-
-			this.alarmCollection.push(alarm);
+			this.alarmCollection.push({id: id, time: time, callback: callback});
 		}
 
 		
@@ -35,20 +30,18 @@ class AlarmClock {
 	}
 
 	getCurrentFormattedTime() {
-		let date = new Date();
-		let hour = date.getHours();
-		let minute = date.getMinutes();
-		return `${hour}:${minute}`
+		return new Date().toLocaleTimeString("ru-Ru", { hour: "2-digit", minute: "2-digit"});
 	}
 
 	start() {
-		let time = this.getCurrentFormattedTime();
-
+		
 		function checkClock(alarm) {
-			if (alarm.time === time) {
+			if (alarm.time === this.getCurrentFormattedTime()) {
 				alarm.callback;
 			}
 		}
+
+		checkClock = checkClock.bind(this);
 
 		this.timerId = setInterval(this.alarmCollection.forEach((item) => checkClock(item)), 10);
 	}
@@ -66,8 +59,8 @@ class AlarmClock {
 	}
 
 	clearAlarms() {
-		clearTimeout(this.timerId);
-		this.alarmCollection = this.alarmCollection.filter(item => item == undefined);
+		this.stop();
+		this.alarmCollection = [];
 	}
 }
 
