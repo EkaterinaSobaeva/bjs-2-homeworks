@@ -1,8 +1,9 @@
 function parseCount(n) {
-	if (isNaN(Number.parseInt(n, 10))) {
+	let count = Number.parseInt(n, 10);
+	if (isNaN(count)) {
 		throw new Error("Невалидное значение");
 	} else {
-		return Number.parseInt(n, 10);
+		return count;
 	}
 }
 
@@ -27,14 +28,12 @@ class Triangle {
 	}
 
 	getPerimeter() {
-		const P = Number(this.side1 + this.side2 + this.side3);
-		return P;
+		return Number(this.side1 + this.side2 + this.side3);
 	}
 
 	getArea() {
 		const p = Number((this.side1 + this.side2 + this.side3)/2);
-		const S = Number(Math.sqrt(p*(p-this.side1)*(p-this.side2)*(p-this.side3)).toFixed(3));
-		return S;
+		return Number(Math.sqrt(p*(p-this.side1)*(p-this.side2)*(p-this.side3)).toFixed(3));
 
 	}
 }
