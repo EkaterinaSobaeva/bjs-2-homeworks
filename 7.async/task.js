@@ -37,13 +37,13 @@ class AlarmClock {
 		
 		function checkClock(alarm) {
 			if (alarm.time === this.getCurrentFormattedTime()) {
-				alarm.callback;
+				alarm.callback();
 			}
 		}
 
 		checkClock = checkClock.bind(this);
 
-		this.timerId = setInterval(this.alarmCollection.forEach((item) => checkClock(item)), 10);
+		this.timerId = setInterval(() => this.alarmCollection.forEach((item) => checkClock(item)), 10);
 	}
 
 	stop() {
